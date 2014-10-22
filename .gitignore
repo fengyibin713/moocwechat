@@ -1,3 +1,4 @@
-/.settings/
-/logs/
-/WebRoot/WEB_INF/lib/
+./.settings/
+./logs/
+./WebRoot/WEB_INF/lib/
+./.gitignore
