@@ -1,0 +1,2 @@
+[INFO ] 2014-10-18 15:13:54,281                   test.TestLog This is info message.
+[ERROR] 2014-10-18 15:13:54,281                   test.TestLog This is error message.
