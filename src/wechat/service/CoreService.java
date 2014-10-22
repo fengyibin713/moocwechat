@@ -13,7 +13,7 @@ import wechat.message.resp.TextMessage;
 import wechat.session.Operation;
 import wechat.session.Session;
 import wechat.session.SessionItem;
-import wechat.util.MsgUtil;
+import wechat.util.MessageUtil;
 
 /**
  * 核心服务类
@@ -36,7 +36,7 @@ public class CoreService {
 
 		try {
 			// 调用parseXml方法解析请求消息
-			Map<String, String> requestMap = MsgUtil.parseXml(request);
+			Map<String, String> requestMap = MessageUtil.parseXml(request);
 			// 发送方帐号
 			String fromUserName = requestMap.get("FromUserName");
 			// 开发者微信号
@@ -65,11 +65,11 @@ public class CoreService {
 				textMessage.setToUserName(fromUserName);
 				textMessage.setFromUserName(toUserName);
 				textMessage.setCreateTime(new Date().getTime());
-				textMessage.setMsgType(MsgUtil.RESP_MESSAGE_TYPE_TEXT);
+				textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 				// 设置文本消息的内容
 				textMessage.setContent(respContent);
 				// 将文本消息对象转换成xml
-				respXml = MsgUtil.messageToXml(textMessage);
+				respXml = MessageUtil.messageToXml(textMessage);
 			}
 			
 		} catch (Exception e) {

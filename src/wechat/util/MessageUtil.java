@@ -31,7 +31,7 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
  * @author 
  * @date 
  */
-public class MsgUtil {
+public class MessageUtil {
 	// 请求消息类型：文本
 	public static final String REQ_MESSAGE_TYPE_TEXT = "text";
 	// 请求消息类型：图片

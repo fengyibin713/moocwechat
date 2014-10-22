@@ -11,7 +11,7 @@ import wechat.message.resp.TextMessage;
 import wechat.session.Operation;
 import wechat.session.Session;
 import wechat.session.SessionItem;
-import wechat.util.MsgUtil;
+import wechat.util.MessageUtil;
 
 public class TeacherService {
 	/**
@@ -45,23 +45,23 @@ public class TeacherService {
 			textMessage.setToUserName(fromUserName);
 			textMessage.setFromUserName(toUserName);
 			textMessage.setCreateTime(new Date().getTime());
-			textMessage.setMsgType(MsgUtil.RESP_MESSAGE_TYPE_TEXT);
+			textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 
 			//客服消息处理
 			if (Session.get(fromUserName).getOper().equals(Operation.OPER3)){
-				if (msgType.equals(MsgUtil.REQ_MESSAGE_TYPE_TEXT) && content.equals("#")) {
+				if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT) && content.equals("#")) {
 					Session.get(fromUserName).setOper(Operation.OPER0);
 					textMessage.setContent("您已终止客服消息发送");
-					return MsgUtil.messageToXml(textMessage);
+					return MessageUtil.messageToXml(textMessage);
 				}else{
 					CustomerService.process(requestMap);
 					textMessage.setContent("已接受客服消息，请继续输入，如需手动终止客服消息发送，请直接回复“#”");
-					return MsgUtil.messageToXml(textMessage);
+					return MessageUtil.messageToXml(textMessage);
 				}
 			}
 			
 			// 文本消息
-			if (msgType.equals(MsgUtil.REQ_MESSAGE_TYPE_TEXT)) {
+			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
 				logger.info("(Text)"+createTime+":"+fromUserName+"---->"+toUserName+":"+content);
 				respContent = "您发送的是文本消息！";
 				
@@ -108,47 +108,47 @@ public class TeacherService {
 				}
 			}
 			// 图片消息
-			else if (msgType.equals(MsgUtil.REQ_MESSAGE_TYPE_IMAGE)) {
+			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
 				respContent = "您发送的是图片消息！";
 			}
 			// 语音消息
-			else if (msgType.equals(MsgUtil.REQ_MESSAGE_TYPE_VOICE)) {
+			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
 				respContent = "您发送的是语音消息！";
 			}
 			// 视频消息
-			else if (msgType.equals(MsgUtil.REQ_MESSAGE_TYPE_VIDEO)) {
+			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VIDEO)) {
 				respContent = "您发送的是视频消息！";
 			}
 			// 地理位置消息
-			else if (msgType.equals(MsgUtil.REQ_MESSAGE_TYPE_LOCATION)) {
+			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) {
 				respContent = "您发送的是地理位置消息！";
 			}
 			// 链接消息
-			else if (msgType.equals(MsgUtil.REQ_MESSAGE_TYPE_LINK)) {
+			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) {
 				respContent = "您发送的是链接消息！";
 			}
 			// 事件推送
-			else if (msgType.equals(MsgUtil.REQ_MESSAGE_TYPE_EVENT)) {
+			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
 				// 事件类型
 				String eventType = requestMap.get("Event");
 				// 关注
-				if (eventType.equals(MsgUtil.EVENT_TYPE_SUBSCRIBE)) {
+				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
 					respContent = "您好！欢迎关注软件测试MOOC(STMOOC)! 软件测试MOOC课程将于2015年2月在Coursera平台发布。在这期间我们将陆续发布课程录制进展和内测版本（包括视频录像和练习题）。欢迎试用！";
 				}
 				// 取消关注
-				else if (eventType.equals(MsgUtil.EVENT_TYPE_UNSUBSCRIBE)) {
+				else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
 					// TODO 取消订阅后用户不会再收到公众账号发送的消息，因此不需要回复
 				}
 				// 扫描带参数二维码
-				else if (eventType.equals(MsgUtil.EVENT_TYPE_SCAN)) {
+				else if (eventType.equals(MessageUtil.EVENT_TYPE_SCAN)) {
 					// TODO 处理扫描带参数二维码事件
 				}
 				// 上报地理位置
-				else if (eventType.equals(MsgUtil.EVENT_TYPE_LOCATION)) {
+				else if (eventType.equals(MessageUtil.EVENT_TYPE_LOCATION)) {
 					// TODO 处理上报地理位置事件
 				}
 				// 自定义菜单
-				else if (eventType.equals(MsgUtil.EVENT_TYPE_CLICK)) {
+				else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
 					String eventKey = requestMap.get("EventKey");
 					if (eventKey.equals("exam_password")) {
 						if (isBinded(fromUserName)){
@@ -216,7 +216,7 @@ public class TeacherService {
 			// 设置文本消息的内容
 			textMessage.setContent(respContent);
 			// 将文本消息对象转换成xml
-			respXml = MsgUtil.messageToXml(textMessage);
+			respXml = MessageUtil.messageToXml(textMessage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -5,7 +5,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import wechat.util.HttpRequestUtil;
-import wechat.util.MsgUtil;
+import wechat.util.MessageUtil;
 
 public class CustomerService {
 	private static Logger logger = Logger.getLogger(CustomerService.class); 
@@ -30,11 +30,11 @@ public class CustomerService {
 		param += "&mediaId=MEDIA_ID";
 		param += "&recognition=RECOGNITION";
 
-		if (msgtype.equals(MsgUtil.REQ_MESSAGE_TYPE_TEXT)) {
+		if (msgtype.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
 			content = requestMap.get("Content");
-		} else if (msgtype.equals(MsgUtil.REQ_MESSAGE_TYPE_IMAGE)) {
+		} else if (msgtype.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
 			mediaId = requestMap.get("MediaId");
-		} else if (msgtype.equals(MsgUtil.REQ_MESSAGE_TYPE_VOICE)) {
+		} else if (msgtype.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
 			mediaId = requestMap.get("MediaId");
 //			recognition = requestMap.get("Recognition");
 		}
