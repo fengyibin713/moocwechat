@@ -2,3 +2,4 @@ settings/
 logs/
 WebRoot/WEB_INF/lib/
 .gitignore
+*.class
